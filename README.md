@@ -60,7 +60,7 @@ ALTER USER postgres PASSWORD 'postgres';
 
 ```json
 {
-  "db_url": "protocol://postgres://postgres:postgres@localhost:5432/gator?sslmode=disable",
+  "db_url": "postgres://postgres:postgres@localhost:5432/gator?sslmode=disable",
   "current_user_name": "yourname"
 }
 ```
