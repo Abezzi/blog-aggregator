@@ -1,4 +1,4 @@
-# installation
+## installation
 
 1. Install postgres
 
@@ -54,4 +54,20 @@ CREATE DATABASE gator;
 ```bash
 \c gator
 ALTER USER postgres PASSWORD 'postgres';
+```
+
+6. Create a .gatorconfig.json at the home directory (vim ~/.gatorconfig.json) from this file the gator cli will read the database, instead of a .env file
+
+```json
+{
+  "db_url": "protocol://postgres://postgres:postgres@localhost:5432/gator?sslmode=disable",
+  "current_user_name": "yourname"
+}
+```
+
+## Generate schema and Migration
+
+```bash
+npm run generate
+npm run migrate
 ```
