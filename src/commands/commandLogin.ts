@@ -2,7 +2,7 @@ import { getUserByName } from "src/db/queries/users";
 import { setUser } from "../config";
 import type { CommandHandler } from "./types";
 
-export const commandLogin: CommandHandler = async (cmdName: string, ...args: string[]) => {
+export const commandLogin: CommandHandler = async (_cmdName: string, ...args: string[]) => {
   if (args.length === 0) {
     throw new Error("username required for login command");
   }

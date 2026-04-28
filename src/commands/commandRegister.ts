@@ -2,7 +2,7 @@ import { createUser, getUserByName } from "src/db/queries/users";
 import type { CommandHandler } from "./types";
 import { setUser } from "src/config";
 
-export const commandRegister: CommandHandler = async (cmdName: string, ...args: string[]) => {
+export const commandRegister: CommandHandler = async (_cmdName: string, ...args: string[]) => {
   // if no args throw error
   if (args.length === 0) {
     throw new Error("name required for register command");
