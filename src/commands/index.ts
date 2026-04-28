@@ -2,6 +2,7 @@ import type { CommandsRegistry, CommandHandler } from "./types";
 import { commandLogin } from "./commandLogin";
 import { commandRegister } from "./commandRegister";
 import { commandReset } from "./commandReset";
+import { commandUsers } from "./commandUsers";
 
 /**
  * helper: register a new command in the registry
@@ -47,6 +48,7 @@ export function createCommandRegistry(): CommandsRegistry {
   registerCommand(registry, "login", commandLogin);
   registerCommand(registry, "register", commandRegister);
   registerCommand(registry, "reset", commandReset);
+  registerCommand(registry, "users", commandUsers);
 
   return registry;
 }
