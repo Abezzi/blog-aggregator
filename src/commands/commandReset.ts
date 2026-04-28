@@ -1,7 +1,7 @@
 import { deleteUsers } from "src/db/queries/users";
 import type { CommandHandler } from "./types";
 
-export const commandReset: CommandHandler = async (_cmdName: string, ...args: string[]) => {
+export const commandReset: CommandHandler = async (_cmdName: string, ..._args: string[]) => {
   try {
     await deleteUsers();
     console.log(`All users deleted`);
