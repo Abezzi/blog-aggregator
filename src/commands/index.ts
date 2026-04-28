@@ -21,11 +21,11 @@ export function registerCommand(
  * @param cmdName - name of the command like, login, help, exit, etc.
  * @param args - extra arguments if any of the command e.g. login <user>
 */
-export function runCommand(
+export async function runCommand(
   registry: CommandsRegistry,
   cmdName: string,
   ...args: string[]
-): void {
+): Promise<void> {
   const handler = registry[cmdName];
 
   if (!handler) {

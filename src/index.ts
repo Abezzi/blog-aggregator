@@ -22,7 +22,7 @@ async function main() {
   const cmdArgs = args.slice(1);
 
   try {
-    runCommand(registry, cmdName, ...cmdArgs);
+    await runCommand(registry, cmdName, ...cmdArgs);
 
     const config = readConfig();
     // DEBUG: log
@@ -33,6 +33,7 @@ async function main() {
     console.error(`Error: ${error.message}`);
     process.exit(1);
   }
+  process.exit(0);
 }
 
 main().catch((err) => {
