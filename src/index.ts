@@ -1,6 +1,7 @@
 import { readConfig } from "./config";
 import { displayAsciiArt } from "./asciiArt.js";
 import { runCommand, createCommandRegistry } from "./commands";
+import { db } from "./db";
 
 async function main() {
   // shows the ascii art, app name and author

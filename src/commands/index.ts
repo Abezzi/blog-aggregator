@@ -1,5 +1,6 @@
 import type { CommandsRegistry, CommandHandler } from "./types";
 import { commandLogin } from "./commandLogin";
+import { commandRegister } from "./commandRegister";
 
 /**
  * helper: register a new command in the registry
@@ -32,7 +33,7 @@ export async function runCommand(
     throw new Error(`Unknown command: ${cmdName}`);
   }
 
-  handler(cmdName, ...args);
+  await handler(cmdName, ...args);
 }
 
 /**
@@ -43,6 +44,7 @@ export function createCommandRegistry(): CommandsRegistry {
 
   // register all commands here
   registerCommand(registry, "login", commandLogin);
+  registerCommand(registry, "register", commandRegister);
 
   return registry;
 }
