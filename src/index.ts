@@ -24,10 +24,10 @@ async function main() {
   try {
     await runCommand(registry, cmdName, ...cmdArgs);
 
-    const config = readConfig();
-    // DEBUG: log
-    console.log("\nCurrent config:");
-    console.dir(config);
+    // DEBUG: log the config
+    // const config = readConfig();
+    // console.log("\nCurrent config:");
+    // console.dir(config);
 
   } catch (error: any) {
     console.error(`Error: ${error.message}`);
