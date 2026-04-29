@@ -5,6 +5,7 @@ import { commandReset } from "./commandReset";
 import { commandUsers } from "./commandUsers";
 import { commandAgg } from "./commandAgg";
 import { commandAddFeed } from "./commandAddFeed";
+import { commandFeeds } from "./commandFeeds";
 
 /**
  * helper: register a new command in the registry
@@ -53,6 +54,7 @@ export function createCommandRegistry(): CommandsRegistry {
   registerCommand(registry, "users", commandUsers);
   registerCommand(registry, "agg", commandAgg);
   registerCommand(registry, "addfeed", commandAddFeed);
+  registerCommand(registry, "feeds", commandFeeds);
 
   return registry;
 }
