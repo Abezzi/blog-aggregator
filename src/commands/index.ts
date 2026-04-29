@@ -3,6 +3,7 @@ import { commandLogin } from "./commandLogin";
 import { commandRegister } from "./commandRegister";
 import { commandReset } from "./commandReset";
 import { commandUsers } from "./commandUsers";
+import { commandAgg } from "./commandAgg";
 
 /**
  * helper: register a new command in the registry
@@ -39,7 +40,7 @@ export async function runCommand(
 }
 
 /**
-  * helper to create and setup the default registry with all commands
+ * helper to create and setup the default registry with all commands
 */
 export function createCommandRegistry(): CommandsRegistry {
   const registry: CommandsRegistry = {};
@@ -49,6 +50,7 @@ export function createCommandRegistry(): CommandsRegistry {
   registerCommand(registry, "register", commandRegister);
   registerCommand(registry, "reset", commandReset);
   registerCommand(registry, "users", commandUsers);
+  registerCommand(registry, "agg", commandAgg);
 
   return registry;
 }
