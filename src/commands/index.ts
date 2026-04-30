@@ -9,6 +9,7 @@ import { commandFeeds } from "./commandFeeds";
 import { commandFollowing } from "./commandFollowing";
 import { commandFollow } from "./commandFollow";
 import { middlewareLoggedIn } from "./middleware";
+import { commandUnfollow } from "./commandUnfollow";
 
 /**
  * helper: register a new command in the registry
@@ -60,6 +61,7 @@ export function createCommandRegistry(): CommandsRegistry {
   registerCommand(registry, "feeds", commandFeeds);
   registerCommand(registry, "following", middlewareLoggedIn(commandFollowing));
   registerCommand(registry, "follow", middlewareLoggedIn(commandFollow));
+  registerCommand(registry, "unfollow", middlewareLoggedIn(commandUnfollow));
 
   return registry;
 }

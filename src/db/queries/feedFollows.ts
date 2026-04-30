@@ -25,6 +25,30 @@ export async function createFeedFollow(userId: string, feedId: string) {
   return result;
 }
 
+export async function unfollowFeed(userId: string, feedUrl: string) {
+  // First, find the feed by URL
+  const [feed] = await db
+    .select({ id: feeds.id, name: feeds.name })
+    .from(feeds)
+    .where(eq(feeds.url, feedUrl));
+
+  if (!feed) {
+    throw new Error(`Feed with URL "${feedUrl}" not found.`);
+  }
+
+  // Delete the follow record
+  const deleted = await db
+    .delete(feedFollows)
+    .where(and(eq(feedFollows.userId, userId), (eq(feedFollows.feedId, feed.id))))
+    .returning();
+
+  if (deleted.length === 0) {
+    throw new Error(`You are not following the feed: "${feed.name}"`);
+  }
+
+  return feed; // return the feed info for nice output
+}
+
 export async function getFeedFollowsForUser(userId: string) {
   return await db
     .select({
