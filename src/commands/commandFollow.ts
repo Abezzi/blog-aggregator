@@ -1,27 +1,18 @@
 import { createFeedFollow, getFeedByUrl, getFeedFollowsForUser } from "../db/queries/feedFollows";
-import { readConfig } from "../config";
-import type { CommandHandler } from "./types";
-import { getUserByName } from "src/db/queries/users";
+import type { UserCommandHandler } from "./types";
+import { User } from "src/db/schema";
 
-export const commandFollow: CommandHandler = async (_: string, url: string) => {
+export const commandFollow: UserCommandHandler = async (
+  _: string,
+  user: User,
+  url: string
+) => {
   if (!url) {
     throw new Error("Usage: follow <feed_url>");
   }
 
   const trimmedUrl = url.trim();
   if (!trimmedUrl) throw new Error("URL cannot be empty");
-
-  // get current user from gatorconfig.json file
-  const config = readConfig();
-  if (!config.currentUserName) {
-    throw new Error("You must be logged in to follow a feed.");
-  }
-
-  // get current user from db
-  const currentUser = await getUserByName(config.currentUserName);
-  if (!currentUser) {
-    throw new Error("Something went wrong loading the current user.");
-  }
 
   const feed = await getFeedByUrl(trimmedUrl);
 
@@ -30,7 +21,7 @@ export const commandFollow: CommandHandler = async (_: string, url: string) => {
   }
 
   // check if i'm following already
-  const userFollows = await getFeedFollowsForUser(currentUser.id);
+  const userFollows = await getFeedFollowsForUser(user.id);
   for (let follow of userFollows) {
     if (follow.feedUrl === url) {
       console.log("🤓 You already follow this feed, run the command 'following' to check your follows.")
@@ -38,7 +29,7 @@ export const commandFollow: CommandHandler = async (_: string, url: string) => {
     }
   }
 
-  const result = await createFeedFollow(currentUser.id, feed.id);
+  const result = await createFeedFollow(user.id, feed.id);
 
   console.log(`✅ Now following: "${result.feedName}"`);
   console.log(`   User: ${result.userName}`);

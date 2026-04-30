@@ -8,6 +8,7 @@ import { commandAddFeed } from "./commandAddFeed";
 import { commandFeeds } from "./commandFeeds";
 import { commandFollowing } from "./commandFollowing";
 import { commandFollow } from "./commandFollow";
+import { middlewareLoggedIn } from "./middleware";
 
 /**
  * helper: register a new command in the registry
@@ -55,10 +56,10 @@ export function createCommandRegistry(): CommandsRegistry {
   registerCommand(registry, "reset", commandReset);
   registerCommand(registry, "users", commandUsers);
   registerCommand(registry, "agg", commandAgg);
-  registerCommand(registry, "addfeed", commandAddFeed);
+  registerCommand(registry, "addfeed", middlewareLoggedIn(commandAddFeed));
   registerCommand(registry, "feeds", commandFeeds);
-  registerCommand(registry, "following", commandFollowing);
-  registerCommand(registry, "follow", commandFollow);
+  registerCommand(registry, "following", middlewareLoggedIn(commandFollowing));
+  registerCommand(registry, "follow", middlewareLoggedIn(commandFollow));
 
   return registry;
 }

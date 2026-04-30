@@ -1,8 +1,6 @@
 import { createFeed } from "../db/queries/feeds";
-import { readConfig } from "../config";
-import type { CommandHandler } from "./types";
-import type { Feed } from "../db/schema.ts";
-import { getUserByName } from "src/db/queries/users";
+import type { UserCommandHandler } from "./types";
+import type { Feed, User } from "../db/schema.ts";
 import { createFeedFollow } from "src/db/queries/feedFollows";
 
 // helper to print feed nicely
@@ -14,7 +12,11 @@ function printFeed(feed: Feed, userName: string) {
   console.log(`   ID   : ${feed.id}`);
 }
 
-export const commandAddFeed: CommandHandler = async (_cmdName: string, ...args: string[]) => {
+export const commandAddFeed: UserCommandHandler = async (
+  _cmdName: string,
+  user: User,
+  ...args: string[]
+) => {
   const name = args[0];
   const url = args[1];
 
@@ -30,26 +32,14 @@ export const commandAddFeed: CommandHandler = async (_cmdName: string, ...args: 
   }
 
   try {
-    // get current logged-in user from config + database
-    const config = readConfig();
-    if (!config.currentUserName) {
-      throw new Error("No user logged in. Please login first.");
-    }
-
-    const currentUser = await getUserByName(config.currentUserName);
-
-    if (!currentUser) {
-      throw new Error("undefined current user");
-    }
-
     // create the feed linked to the current user
-    const newFeed = await createFeed(trimmedName, trimmedUrl, currentUser.id);
+    const newFeed = await createFeed(trimmedName, trimmedUrl, user.id);
 
     // auto-follow the feed
-    await createFeedFollow(currentUser.id, newFeed.id);
+    await createFeedFollow(user.id, newFeed.id);
 
     // print the result
-    printFeed(newFeed, currentUser.name);
+    printFeed(newFeed, user.name);
   } catch (error: any) {
     console.error("Failed to add feed:", error.message);
     throw error;
