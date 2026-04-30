@@ -5,7 +5,7 @@ import { and, eq } from "drizzle-orm";
 export async function createFeedFollow(userId: string, feedId: string) {
   await db.insert(feedFollows).values({ userId, feedId }).returning();
 
-  // Fetch the full info
+  // fetch the full info
   const [result] = await db
     .select({
       feedName: feeds.name,
@@ -26,7 +26,7 @@ export async function createFeedFollow(userId: string, feedId: string) {
 }
 
 export async function unfollowFeed(userId: string, feedUrl: string) {
-  // First, find the feed by URL
+  // find the feed by URL
   const [feed] = await db
     .select({ id: feeds.id, name: feeds.name })
     .from(feeds)
@@ -36,7 +36,7 @@ export async function unfollowFeed(userId: string, feedUrl: string) {
     throw new Error(`Feed with URL "${feedUrl}" not found.`);
   }
 
-  // Delete the follow record
+  // delete the follow record
   const deleted = await db
     .delete(feedFollows)
     .where(and(eq(feedFollows.userId, userId), (eq(feedFollows.feedId, feed.id))))
@@ -45,8 +45,8 @@ export async function unfollowFeed(userId: string, feedUrl: string) {
   if (deleted.length === 0) {
     throw new Error(`You are not following the feed: "${feed.name}"`);
   }
-
-  return feed; // return the feed info for nice output
+  // return the feed info for nice output
+  return feed;
 }
 
 export async function getFeedFollowsForUser(userId: string) {
