@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, timestamp, unique } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
@@ -19,15 +19,31 @@ export const feeds = pgTable("feeds", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const feedFollows = pgTable(
+  "feed_follows",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    feedId: uuid("feed_id")
+      .notNull()
+      .references(() => feeds.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => [
+    unique().on(table.userId, table.feedId).nullsNotDistinct(),
+  ]
+);
+
+// Relations
 export const usersRelations = relations(users, ({ many }) => ({
-  feeds: many(feeds),
+  feedFollows: many(feedFollows),
 }));
 
-export const feedsRelations = relations(feeds, ({ one }) => ({
-  user: one(users, {
-    fields: [feeds.userId],
-    references: [users.id],
-  }),
+export const feedsRelations = relations(feeds, ({ many }) => ({
+  feedFollows: many(feedFollows),
 }));
 
 export type User = typeof users.$inferSelect;

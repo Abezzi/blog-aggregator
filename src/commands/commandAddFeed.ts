@@ -3,10 +3,11 @@ import { readConfig } from "../config";
 import type { CommandHandler } from "./types";
 import type { Feed } from "../db/schema.ts";
 import { getUserByName } from "src/db/queries/users";
+import { createFeedFollow } from "src/db/queries/feedFollows";
 
 // helper to print feed nicely
 function printFeed(feed: Feed, userName: string) {
-  console.log(`✅ Feed added successfully!`);
+  console.log(`✅ Feed added successfully, following`);
   console.log(`   Name : ${feed.name}`);
   console.log(`   URL  : ${feed.url}`);
   console.log(`   User : ${userName}`);
@@ -36,7 +37,6 @@ export const commandAddFeed: CommandHandler = async (_cmdName: string, ...args: 
     }
 
     const currentUser = await getUserByName(config.currentUserName);
-    console.log("current user: ", currentUser);
 
     if (!currentUser) {
       throw new Error("undefined current user");
@@ -44,6 +44,9 @@ export const commandAddFeed: CommandHandler = async (_cmdName: string, ...args: 
 
     // create the feed linked to the current user
     const newFeed = await createFeed(trimmedName, trimmedUrl, currentUser.id);
+
+    // auto-follow the feed
+    await createFeedFollow(currentUser.id, newFeed.id);
 
     // print the result
     printFeed(newFeed, currentUser.name);

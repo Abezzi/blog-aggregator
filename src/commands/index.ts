@@ -6,6 +6,8 @@ import { commandUsers } from "./commandUsers";
 import { commandAgg } from "./commandAgg";
 import { commandAddFeed } from "./commandAddFeed";
 import { commandFeeds } from "./commandFeeds";
+import { commandFollowing } from "./commandFollowing";
+import { commandFollow } from "./commandFollow";
 
 /**
  * helper: register a new command in the registry
@@ -55,6 +57,8 @@ export function createCommandRegistry(): CommandsRegistry {
   registerCommand(registry, "agg", commandAgg);
   registerCommand(registry, "addfeed", commandAddFeed);
   registerCommand(registry, "feeds", commandFeeds);
+  registerCommand(registry, "following", commandFollowing);
+  registerCommand(registry, "follow", commandFollow);
 
   return registry;
 }
