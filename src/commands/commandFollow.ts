@@ -33,7 +33,7 @@ export const commandFollow: CommandHandler = async (_: string, url: string) => {
   const userFollows = await getFeedFollowsForUser(currentUser.id);
   for (let follow of userFollows) {
     if (follow.feedUrl === url) {
-      console.log("🤓 You already follow this feed, run the command 'feeds' to check your feeds.")
+      console.log("🤓 You already follow this feed, run the command 'following' to check your follows.")
       return;
     }
   }
