@@ -1,7 +1,6 @@
 import { db } from "..";
 import { posts, feeds, feedFollows } from "../schema";
 import { eq, desc } from "drizzle-orm";
-import type { Post } from "../schema";
 
 export type PostWithFeed = {
   id: string;
