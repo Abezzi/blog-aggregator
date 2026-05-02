@@ -24,23 +24,23 @@ Gator is designed for local use with a simple JSON config file and a PostgreSQL 
 
 | Command                  | Description                                       | Usage                                              |
 |--------------------------|---------------------------------------------------|----------------------------------------------------|
-| `register <name>`        | Creates a new user                                | `register alex`                                    |
-| `login <name>`           | Switchs to an existing user.                      | `login sofia`                                      |
 | `addfeed <name> <url>`   | Add a new RSS feed and follow it                  | `addfeed "TechCrunch" https://techcrunch.com/feed/`|
-| `follow <url>`           | Follow an existing feed                           | `follow https://news.ycombinator.com/rss`          |
-| `unfollow <url>`         | Unfollow an existing feed                         | `unfollow https://techcrunch.com/feed/`            |
-| `following`              | List all feeds you're currently following.        | `following`                                        |
-| `feeds`                  | List all feeds in the system.                     | `feeds`                                            |
-| `browse [limit]`         | Browse latest posts from feeds you follow         | `browse 10`                                        |
 | `agg <interval>`         | Start the background aggregator (e.g. 60s, 5m)    | `agg 60s`                                          |
+| `browse [limit]`         | Browse latest posts from feeds you follow         | `browse 10`                                        |
+| `feeds`                  | List all feeds in the system.                     | `feeds`                                            |
+| `follow <url>`           | Follow an existing feed                           | `follow https://news.ycombinator.com/rss`          |
+| `following`              | List all feeds you're currently following.        | `following`                                        |
+| `login <name>`           | Switchs to an existing user.                      | `login sofia`                                      |
+| `register <name>`        | Creates a new user and switch to it               | `register alex`                                    |
 | `reset`                  | Delete all users and their data (dangerous)       | `reset`                                            |
+| `unfollow <url>`         | Unfollow an existing feed                         | `unfollow https://techcrunch.com/feed/`            |
+| `users`                  | List all the users and the one logged in          | `users`                                            |
 
 ## Example Usage
 
 ```bash
-# 1. Login or register
+# 1. register and login
 npm run start register alex
-npm run start login alex
 
 # 2. Add some feeds
 npm run start addfeed "Boot.dev" "https://www.boot.dev/blog/index.xml"
@@ -120,7 +120,7 @@ ALTER USER postgres PASSWORD 'postgres';
 }
 ```
 
-## Generate schema and Migration
+## Generate schema and apply the migration
 
 ```bash
 npm run generate
