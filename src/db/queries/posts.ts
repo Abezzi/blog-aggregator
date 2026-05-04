@@ -10,6 +10,7 @@ export type PostWithFeed = {
   publishedAt: Date | null;
   feedId: string;
   feedName: string;
+  createdAt: Date | null;
 };
 
 export async function createPost(postData: {
@@ -43,6 +44,7 @@ export async function getPostsForUser(userId: string, limit: number = 10): Promi
       publishedAt: posts.publishedAt,
       feedId: posts.feedId,
       feedName: feeds.name,
+      createdAt: feeds.createdAt
     })
     .from(posts)
     .innerJoin(feeds, eq(posts.feedId, feeds.id))
