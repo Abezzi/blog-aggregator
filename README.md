@@ -4,10 +4,6 @@ Gator is a lightweight, multi-user RSS feed aggregator CLI built with TypeScript
 It allows users to follow RSS feeds, automatically fetch new posts in the background, and browse the latest content directly in the terminal, just like early 2000s desktop feed readers.
 Gator is designed for local use with a simple JSON config file and a PostgreSQL database. Perfect for developers who want to stay updated with tech blogs, news, and personal sites without relying on bloated web services.
 
-## Demo Video
-
-- check out the demo [here]()
-
 ## Features
 
 - **User Management**: Register and switch between multiple users
@@ -22,19 +18,19 @@ Gator is designed for local use with a simple JSON config file and a PostgreSQL 
 
 ## Available Commands
 
-| Command                  | Description                                       | Usage                                              |
-|--------------------------|---------------------------------------------------|----------------------------------------------------|
-| `addfeed <name> <url>`   | Add a new RSS feed and follow it                  | `addfeed "TechCrunch" https://techcrunch.com/feed/`|
-| `agg <interval>`         | Start the background aggregator (e.g. 60s, 5m)    | `agg 60s`                                          |
-| `browse [limit]`         | Browse latest posts from feeds you follow         | `browse 10`                                        |
-| `feeds`                  | List all feeds in the system.                     | `feeds`                                            |
-| `follow <url>`           | Follow an existing feed                           | `follow https://news.ycombinator.com/rss`          |
-| `following`              | List all feeds you're currently following.        | `following`                                        |
-| `login <name>`           | Switchs to an existing user.                      | `login sofia`                                      |
-| `register <name>`        | Creates a new user and switch to it               | `register alex`                                    |
-| `reset`                  | Delete all users and their data (dangerous)       | `reset`                                            |
-| `unfollow <url>`         | Unfollow an existing feed                         | `unfollow https://techcrunch.com/feed/`            |
-| `users`                  | List all the users and the one logged in          | `users`                                            |
+| Command                | Description                                    | Usage                                               |
+| ---------------------- | ---------------------------------------------- | --------------------------------------------------- |
+| `addfeed <name> <url>` | Add a new RSS feed and follow it               | `addfeed "TechCrunch" https://techcrunch.com/feed/` |
+| `agg <interval>`       | Start the background aggregator (e.g. 60s, 5m) | `agg 60s`                                           |
+| `browse [limit]`       | Browse latest posts from feeds you follow      | `browse 10`                                         |
+| `feeds`                | List all feeds in the system.                  | `feeds`                                             |
+| `follow <url>`         | Follow an existing feed                        | `follow https://news.ycombinator.com/rss`           |
+| `following`            | List all feeds you're currently following.     | `following`                                         |
+| `login <name>`         | Switchs to an existing user.                   | `login sofia`                                       |
+| `register <name>`      | Creates a new user and switch to it            | `register alex`                                     |
+| `reset`                | Delete all users and their data (dangerous)    | `reset`                                             |
+| `unfollow <url>`       | Unfollow an existing feed                      | `unfollow https://techcrunch.com/feed/`             |
+| `users`                | List all the users and the one logged in       | `users`                                             |
 
 ## Example Usage
 
@@ -78,6 +74,7 @@ brew services start postgresql@16
 ```
 
 Arch Linux:
+
 ```bash
 sudo -u postgres initdb -D /var/lib/postgres/data --locale en_US.UTF-8
 sudo systemctl start postgresql
@@ -94,6 +91,7 @@ psql postgres
 ```
 
 Arch Linux:
+
 ```bash
 sudo -u postgres psql
 ```
